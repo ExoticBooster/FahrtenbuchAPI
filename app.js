@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const con = require("./database/connection")
 const app = express();
 
 //parse request
@@ -17,6 +17,21 @@ app.listen(3000, () => {
 // simple route
 app.get("/", (req, res) => {
   res.render('home');
+});
+
+app.get("/getLastInsertID", (req, res) => {
+  var sql = "SELECT LAST_INSERT_ID();";
+  let msg;
+  con.query(sql, (err, result) => {
+    if (err) res.json(err.sqlMessage)
+    else {
+      var string = JSON.stringify(result)
+      var json = JSON.parse(string)
+      console.log(json)
+      msg = json;
+      res.json(msg)
+    }
+  });
 });
 
 
