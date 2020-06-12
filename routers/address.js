@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
     else{
       var string = JSON.stringify(result)
       var json = JSON.parse(string)
-      console.log(json)
+      console.log("select all from address"+json)
       msg = json;
       res.json(msg)
     }
@@ -30,7 +30,7 @@ router.get("/:id", (req, res) => {
     else{
       var string = JSON.stringify(result)
       var json = JSON.parse(string)
-      console.log(json)
+      console.log("select from address with id:" + json)
       msg = json;
       res.json(msg)
     }

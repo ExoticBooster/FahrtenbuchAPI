@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
     else{
       var string = JSON.stringify(result)
       var json = JSON.parse(string)
-      console.log(json)
+      console.log("select from maintenance "+json)
       msg = json;
       res.json(msg)
     }
@@ -30,7 +30,7 @@ router.get("/:id", (req, res) => {
     else{
       var string = JSON.stringify(result)
       var json = JSON.parse(string)
-      console.log(json)
+      console.log("get maintenance wwith id:" + json)
       msg = json;
       res.json(msg)
     }
@@ -69,7 +69,6 @@ router.delete("/:id", (req, res) => {
         return
       }
       msg = "sucsessfully deleted";
-      console.log("hallo")
     }
     res.json(msg);
   })

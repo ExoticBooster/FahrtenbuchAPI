@@ -12,7 +12,6 @@ router.get("/", (req, res) => {
     else{
       var string = JSON.stringify(result)
       var json = JSON.parse(string)
-      console.log(json)
       msg = json;
       res.json(msg)
     }
@@ -30,7 +29,7 @@ router.get("/:id", (req, res) => {
     else{
       var string = JSON.stringify(result)
       var json = JSON.parse(string)
-      console.log(json)
+      console.log("get all from driver: "+json)
       msg = json;
       res.json(msg)
     }
@@ -48,7 +47,7 @@ con.query(sql,[email], (err, result) =>
   else{
     var string = JSON.stringify(result)
     var json = JSON.parse(string)
-    console.log(json)
+    console.log("get driver from id:" + json)
     msg = json;
     res.json(msg)
     }
@@ -64,10 +63,9 @@ con.query(sql,[id], (err, result) =>
 {
   if(err) res.json(err.sqlMessage)
   else{
-    console.log("angefragt")
+    console.log("get lookkup from driver")
     var string = JSON.stringify(result)
     var json = JSON.parse(string)
-    console.log(json)
     msg = json;
     res.json(msg)
   }
@@ -80,6 +78,23 @@ router.post("/", (req, res) => {
   let msg;
   let object = JSON.parse(JSON.stringify(req.body))
   let data = [object["surname"], object["lastname"], object["addressID"], object["password"], object["email"]]
+  con.query(sql, [data], (err) =>
+  {
+    if(err){
+      msg = err.message 
+    } 
+    else msg = "sucsessfully created"
+    res.json(msg);
+  });
+});
+
+
+
+router.post("/assignCar", (req, res) => {
+  var sql = "INSERT INTO car_driver (driver, car) VALUES (?)";
+  let msg;
+  let object = JSON.parse(JSON.stringify(req.body))
+  let data = [object["driver"], object["car"]]
   con.query(sql, [data], (err) =>
   {
     if(err){
@@ -113,7 +128,7 @@ router.delete("/:id", (req, res) => {
 //patch driver
 router.patch("/:id" , (req, res) => {
   var sql = "UPDATE driver WHERE id = ?";
-  let msg, id = req.params.id ;
+  let msg, id = req.params.id ; 
   con.query(sql, [id, Object.values(req.body)], (err, result) =>
   {
     if(err){

@@ -12,7 +12,6 @@ router.get("/", (req, res) => {
     else{
       var string = JSON.stringify(result)
       var json = JSON.parse(string)
-      console.log(json)
       msg = json;
       res.json(msg)
     }
@@ -30,7 +29,6 @@ router.get("/:id", (req, res) => {
     else{
       var string = JSON.stringify(result)
       var json = JSON.parse(string)
-      console.log(json)
       msg = json;
       res.json(msg)
     }
@@ -40,6 +38,7 @@ router.get("/:id", (req, res) => {
 //create
 //( departureAddress int id. deüarture Date String, start-Milage int, end Milage, destination int id, driver int id)
 router.post("/", (req, res) => {
+  console.log("comment hier:" + json.bodyParser(req.body))
   var sql = "INSERT INTO trip (car, departureAddress, departureDate, start_Mileage, end_Mileage, destination, driver) VALUES (?)";
   let msg;
   let object = JSON.parse(JSON.stringify(req.body))
